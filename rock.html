@@ -8,13 +8,90 @@
 
 
     
-  <script>
-      computerPlay(){
-          Math.random()
-      }
+<script>
+    function getComputer(){
+        let options = ["rock", "paper", "sissors"];
+        return options[getRandomInt(3)];
+    }
 
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+    }
 
+    function getPlayer(){
+        let playerRaw = prompt("So - Rock, paper, or Sissors?", "You pick!");
+        let playerSelection = playerRaw.toLowerCase();
+        return playerSelection;
+    }
+//let playerSelection = getPlayer();
+//let computerSelection = getComputer();
+//playRound()
+function playRound (playerSelection, computerSelection){
+//function playRound (){
+    //let playerSelection = getPlayer();
+    //let computerSelection = getComputer();
+    let gameResult;
+    
+    console.log("Player is "+playerSelection);
+    console.log("Computer is "+computerSelection);
 
-  </script>
+    if (playerSelection == computerSelection){
+        console.log ("Tie: Try Again")
+        gameResult="Tie";
+    } else {
+        switch (playerSelection+computerSelection) {
+            case "rock"+"paper":
+                gameResult="Loss";
+                break;
+            case "rock"+"sissors":
+                gameResult="Win";
+                break;
+            case "paper"+"rock":
+                gameResult="Win";
+                break;    
+            case "paper"+"sissors":
+                gameResult="Loss";
+                break;                   
+            case "sissors"+"rock":
+                gameResult="Loss";
+                break;
+            case "sissors"+"paper":
+                gameResult="Win";
+                break;
+            default:
+            console.log("FUCKUP!");
+                break;
+        }
+    console.log (gameResult) 
+    }
+  
+    return gameResult;
+}
+
+function game (count){
+    let win=0;
+    let loss=0;
+    let tie=0
+    let i;
+    for (i=0;i<count;i++) {
+        let gameResult=playRound(getPlayer(),getComputer())
+        switch (gameResult) {
+            case "Win":
+                ++win
+                break;
+            case "Loss":
+                ++loss
+                break;
+            case "Tie":
+                ++tie
+                break;
+            default:
+                break;
+        }
+        console.log("So far you have "+win+" wins and "+loss+" loss(es) and "+tie+" ties in "+(i+1)+" game(s)");
+    }
+    console.log("Thats all kids: "+win+" wins and "+loss+" loss(es) and "+tie+" ties.")
+}
+</script>
 </body>
 </html>
