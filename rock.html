@@ -2,12 +2,11 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Function scope example</title>
+  <title>Rock the free world</title>
 </head>
 <body>
 
-
-    
+  
 <script>
     function getComputer(){
         let options = ["rock", "paper", "sissors"];
@@ -19,24 +18,22 @@
     }
 
     function getPlayer(){
-        let playerRaw = prompt("So - Rock, paper, or Sissors?", "You pick!");
-        let playerSelection = playerRaw.toLowerCase();
-        return playerSelection;
+        let playerRaw="";
+        while (!(playerRaw && (playerRaw.toLowerCase() == "rock" || playerRaw.toLowerCase() == "paper" || playerRaw.toLowerCase() == "sissors"))) {
+            playerRaw = prompt("So - Rock, paper, or Sissors?","Ready");
+        }
+        return playerRaw.toLowerCase();
     }
-//let playerSelection = getPlayer();
-//let computerSelection = getComputer();
-//playRound()
+
 function playRound (playerSelection, computerSelection){
-//function playRound (){
-    //let playerSelection = getPlayer();
-    //let computerSelection = getComputer();
-    let gameResult;
+
+    let gameResult="";
     
     console.log("Player is "+playerSelection);
     console.log("Computer is "+computerSelection);
 
     if (playerSelection == computerSelection){
-        console.log ("Tie: Try Again")
+        console.log ("How boring - its a tie game.")
         gameResult="Tie";
     } else {
         switch (playerSelection+computerSelection) {
@@ -62,7 +59,8 @@ function playRound (playerSelection, computerSelection){
             console.log("FUCKUP!");
                 break;
         }
-    console.log (gameResult) 
+    let gamePrint = gameResult=="Win" ? ("You are a champ! "+playerSelection+ " beats " +computerSelection+". ") : (" HaHa sucker - you LOSE! "+playerSelection+ " could never beat " +computerSelection+".");
+    console.log (gamePrint);
     }
   
     return gameResult;
