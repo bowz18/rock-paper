@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        button {
+            color: blue;
+            border: 30px;
+            border-color: black;
+            padding: 0.5em;
+            margin: 5px;
+            align-items: center;
+            font-size: 2em;
+        }
+    </style>
+
+  <meta charset="utf-8">
+  <title>Rock the free world</title>
+</head>
+<body>
+    <div>
+        Make your choice!
+    </div>
+
+    <div class="buttons">
+        
+        <button class="rock">Rock</button>
+        <button class="paper">Paper</button>
+        <button class="sissors">Sissors</button>
+    </div>
+
+    <div class="score">
+        <div class="scoreNew">
+        </div>
+    </div>
+  
+<script>
+
+
+
+    function getComputer(){
+        let options = ["rock", "paper", "sissors"];
+        return options[getRandomInt(3)];
+    }
+
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+    }
+
+    function getPlayer(){
+        let playerRaw="";
+        while (!(playerRaw && (playerRaw.toLowerCase() == "rock" || playerRaw.toLowerCase() == "paper" || playerRaw.toLowerCase() == "sissors"))) {
+            playerRaw = prompt("So - Rock, paper, or Sissors?","Ready");
+        }
+        return playerRaw.toLowerCase();
+    }
+
+function playRound (playerSelection){
+    let computerSelection = getComputer();
+    let gameResult="";
+    
+    console.log("Player is "+playerSelection);
+    console.log("Computer is "+computerSelection);
+
+    if (playerSelection == computerSelection){
+        // console.log ("How boring - its a tie game.")
+        gameResult="Tie";
+    } else {
+        switch (playerSelection+computerSelection) {
+            case "rock"+"paper":
+                gameResult="Loss";
+                break;
+            case "rock"+"sissors":
+                gameResult="Win";
+                break;
+            case "paper"+"rock":
+                gameResult="Win";
+                break;    
+            case "paper"+"sissors":
+                gameResult="Loss";
+                break;                   
+            case "sissors"+"rock":
+                gameResult="Loss";
+                break;
+            case "sissors"+"paper":
+                gameResult="Win";
+                break;
+            default:
+            console.log("FUCKUP!");
+                break;
+        }
+    // console.log(gamePrint);
+    // scoreStuff.textcontent += gamePrint;
+    }
+
+    let gamePrint;
+    if(gameResult=="Win") {
+        gamePrint = "You are a champ! "+playerSelection+ " beats " +computerSelection+". "
+        
+    } else if (gameResult=="Loss") {
+        gamePrint = "HaHa sucker - you LOSE! "+playerSelection+ " could never beat " +computerSelection+".";
+    } else {
+        gamePrint = "How boring - its a tie game. You both had "+playerSelection+".";
+
+    }
+    
+    return [gameResult,gamePrint];
+}
+let win=0;
+let loss=0;
+let tie=0
+let games=0;
+
+
+function resetPlay () {
+    win=0;
+    loss=0;
+    tie=0
+    games=0;
+
+}
+
+let buttons = document.querySelector(".buttons")
+buttons.addEventListener('click', (e) => {
+        console.log(e.target.classList.value);
+        if (games<5) {
+        let results = playRound(e.target.classList.value);
+        results[0] = trackScore(results[0]);
+        // results[0]=currentGameResult;
+        writeUp(results);
+        } else {
+            confirm ("You've played all 5 games. Click OK to replay, or Cancel to Exit") ? resetPlay(): "";
+        }
+});
+
+function trackScore(gameResult) {
+    games++;
+    switch (gameResult) {
+        case "Win":
+            win++
+            break;
+        case "Loss":
+            loss++
+            break;
+        case "Tie":
+            tie++
+            break;
+        default:
+            break;
+    }
+    let buildPrint;
+    if (games != 5) {
+        buildPrint = `Here\'s where we are to date: You have ${win} win${win!=1 ? "s":""}, ${loss} loss${loss!=1 ? "es":""} and ${tie} tie${tie!=1 ? "s":""} in ${games} game(s)`;
+    } else {
+        buildPrint = `Thats it - 5 games down! You had ${win} win${win!=1 ? "s":""}, ${loss} loss${loss!=1 ? "es":""} and ${tie} tie${tie!=1 ? "s":""} in ${games} game(s)`;
+    }
+    return buildPrint;
+}
+
+function writeUp(results) {
+    let gameRunning=results[0];
+    let gamePrint=results[1];
+    let score = document.querySelector('.score');
+    let scoreNew = document.createElement('div');
+    scoreNew.classList.add("scoreNew")
+    let thisGame = document.createElement('p');
+    thisGame.textContent = gamePrint;
+    scoreNew.appendChild(thisGame);
+    let allGames = document.createElement('p');
+    allGames.textContent = gameRunning;
+    scoreNew.appendChild(allGames);
+
+    let scoreOld = document.querySelector('.scoreNew');
+    score.replaceChild(scoreNew,scoreOld);
+
+}
+
+
+</script>
+</body>
+</html>

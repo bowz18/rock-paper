@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+      .lefty {
+        text-align : left;
+      }
+    </style>
+</head>
+
+<body>
+
+<h1>Mountains</h1>
+
+<div id="mountains"></div>
+
+<!-- <div>
+
+<table>
+    <tr>
+      <th>name</th>
+      <th>height</th>
+      <th>place</th>
+    </tr>
+    <tr>
+      <td>Kilimanjaro</td>
+      <td>5895</td>
+      <td>Tanzania</td>
+    </tr>
+  </table>
+</div>
+ -->
+<script>
+  const MOUNTAINS = [
+    {name: "Kilimanjaro", height: 5895, place: "Tanzania"},
+    {name: "Everest", height: 8848, place: "Nepal"},
+    {name: "Mount Fuji", height: 3776, place: "Japan"},
+    {name: "Vaalserberg", height: 323, place: "Netherlands"},
+    {name: "Denali", height: 6168, place: "United States"},
+    {name: "Popocatepetl", height: 5465, place: "Mexico"},
+    {name: "Mont Blanc", height: 4808, place: "Italy/France"}
+  ];
+
+let div=document.querySelector("#mountains");
+// console.log(div);
+let table = document.createElement("table");
+let row1 = document.createElement("tr");
+let names=Object.keys(MOUNTAINS[0]);
+for (let i=0;i < names.length;i++) {
+  let th = document.createElement("th");
+  th.textContent = names[i];
+  row1.appendChild(th);
+}
+table.appendChild(row1);
+
+
+MOUNTAINS.forEach(mtn => {
+  let rows = document.createElement("tr");
+  for (let j=0;j < names.length;j++) {
+    let th = document.createElement("th");
+    th.textContent =mtn[names[j]];
+    th.style.textAlign = "left";
+    // th.classList.add ("lefty");
+    // console.log(mtn[names[j]]);
+    rows.appendChild(th);
+  }
+  table.classList
+  table.appendChild(rows);
+
+});
+/* for (let i=0; i<MOUNTAINS.length;i++) {
+  let rows = document.createElement("tr");
+  let mtn=MOUNTAINS[i];
+  console.log(mtn)
+  for (let j=0;j < names.length;j++) {
+    let th = document.createElement("th");
+    th.textContent =mtn[names[j]];
+    // console.log(mtn[names[j]]);
+    rows.appendChild(th);
+  }
+  table.appendChild(rows);
+}; */
+div.appendChild(table);
+
+</script>
+</script>
+</body>
+</html>
